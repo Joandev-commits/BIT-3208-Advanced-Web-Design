@@ -93,7 +93,7 @@ if($_SESSION['role'] != 'procurement officer'){
 
                 <p>
                     Welcome,
-                    <?php echo $_SESSION['email']; ?>
+                    <?php echo $_SESSION['fullname']; ?>
                 </p>
 
             </div>

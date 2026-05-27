@@ -96,14 +96,13 @@ if($_SESSION['role'] != 'admin'){
 
                 <p>
                     Welcome,
-                    <?php echo $_SESSION['email']; ?>
+                    <?php echo $_SESSION['fullname']; ?>
                 </p>
 
             </div>
 
         </div>
 
-        <!-- STATISTICS -->
 
         <div class="stats-container">
 
@@ -140,8 +139,6 @@ if($_SESSION['role'] != 'admin'){
             </div>
 
         </div>
-
-        <!-- QUICK ACTIONS -->
 
         <div class="content-section">
 
