@@ -8,8 +8,6 @@ $email = $_POST['email'];
 
 $password = $_POST['password'];
 
-// HASH PASSWORD
-
 $hashed_password =
 password_hash($password, PASSWORD_DEFAULT);
 

@@ -34,8 +34,6 @@ if($_SESSION['role'] != 'procurement officer'){
 
 <div class="dashboard-container">
 
-    <!-- SIDEBAR -->
-
     <div class="sidebar">
 
         <div>
@@ -77,11 +75,7 @@ if($_SESSION['role'] != 'procurement officer'){
 
     </div>
 
-    <!-- MAIN CONTENT -->
-
     <div class="main-content">
-
-        <!-- TOPBAR -->
 
         <div class="topbar">
 
@@ -100,9 +94,7 @@ if($_SESSION['role'] != 'procurement officer'){
 
         </div>
 
-        <!-- STATISTICS -->
-
-        <div class="stats-container">
+            <div class="stats-container">
 
             <div class="stat-card">
 
@@ -129,8 +121,6 @@ if($_SESSION['role'] != 'procurement officer'){
             </div>
 
         </div>
-
-        <!-- PROCUREMENT ACTIONS -->
 
         <div class="content-section">
 

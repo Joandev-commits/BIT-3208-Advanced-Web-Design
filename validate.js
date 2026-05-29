@@ -12,8 +12,6 @@ function validateForm(){
 
     document.getElementById("passwordError").innerHTML = "";
 
-    // EMAIL VALIDATION
-
     if(email === ""){
 
         document.getElementById("emailError").innerHTML =
@@ -21,8 +19,6 @@ function validateForm(){
 
         valid = false;
     }
-
-    // PASSWORD VALIDATION
 
     if(password === ""){
 
