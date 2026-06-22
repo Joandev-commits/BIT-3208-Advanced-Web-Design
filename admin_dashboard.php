@@ -66,6 +66,11 @@ if($_SESSION['role'] != 'admin'){
                         View Suppliers
                     </a>
                 </li>
+                <li>
+                  <a href="audit_logs.php">
+                        Audit Logs
+    </a>
+</li>
 
             </ul>
 
