@@ -4,8 +4,7 @@ include("session_check.php");
 include("db_connect.php");
 
 
-if($_SESSION['role'] != 'admin' &&
-   $_SESSION['role'] != 'manager'){
+if($_SESSION['role'] != 'admin'){
 
     header("Location: login.php");
     exit();
@@ -111,14 +110,6 @@ $result = mysqli_query($conn, $sql);
     <?php if($_SESSION['role'] == 'admin'){ ?>
 
         <a href="admin_dashboard.php">
-            Back to Dashboard
-        </a>
-
-    <?php } ?>
-
-    <?php if($_SESSION['role'] == 'manager'){ ?>
-
-        <a href="manager_dashboard.php">
             Back to Dashboard
         </a>
 

@@ -1,0 +1,214 @@
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body.site-body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#1f2937;
+}
+
+.site-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 7%;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.site-brand{
+    text-decoration:none;
+    font-size:34px;
+    font-weight:bold;
+    color:#0f2a44;
+}
+
+.site-nav{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.site-nav a{
+    text-decoration:none;
+    color:#374151;
+    font-weight:600;
+}
+
+.site-nav-btn{
+    background:#0f766e;
+    color:white !important;
+    padding:10px 18px;
+    border-radius:6px;
+}
+
+.site-hero{
+    min-height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:80px 20px;
+    background:linear-gradient(
+        135deg,
+        #0f2a44,
+        #173d63
+    );
+}
+
+.site-hero-content{
+    max-width:850px;
+}
+
+.eyebrow{
+    color:#14b8a6;
+    text-transform:uppercase;
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.site-hero h1{
+    color:white;
+    font-size:52px;
+    margin:20px 0;
+}
+
+.hero-copy{
+    color:#dbe7f3;
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.primary-action{
+    text-decoration:none;
+    background:#0f766e;
+    color:white;
+    padding:14px 24px;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+.primary-action:hover{
+    background:#115e59;
+}
+
+.workflow-section,
+.features-section,
+.roles-section{
+    padding:70px 7%;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-heading h2{
+    font-size:34px;
+    color:#0f2a44;
+}
+
+.workflow-grid,
+.feature-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.feature-list{
+    grid-template-columns:repeat(4,1fr);
+}
+
+.workflow-step,
+.feature-item{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:25px;
+}
+
+.workflow-step span{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#0f766e;
+    color:white;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.workflow-step h3,
+.feature-item h3{
+    color:#0f2a44;
+}
+
+.workflow-step p,
+.feature-item p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.roles-panel{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:30px;
+}
+
+.roles-list{
+    margin-top:20px;
+}
+
+.role-row{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:20px;
+    padding:15px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.role-row:last-child{
+    border-bottom:none;
+}
+
+.role-row strong{
+    color:#0f2a44;
+}
+
+.role-row span{
+    color:#6b7280;
+}
+
+.site-footer{
+    text-align:center;
+    padding:25px;
+    background:#0f172a;
+    color:white;
+}
+
+@media(max-width:900px){
+
+    .workflow-grid,
+    .feature-list{
+        grid-template-columns:1fr;
+    }
+
+    .role-row{
+        grid-template-columns:1fr;
+    }
+
+    .site-hero h1{
+        font-size:38px;
+    }
+}

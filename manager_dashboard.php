@@ -3,8 +3,10 @@
 include("session_check.php");
 include("db_connect.php");
 
-if($_SESSION['role'] != 'procurement officer'){
+if($_SESSION['role'] != 'manager'){
+
     header("Location: login.php");
+
     exit();
 }
 
@@ -12,13 +14,13 @@ $total_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers");
 $total_row = mysqli_fetch_assoc($total_result);
 $total_suppliers = $total_row['total'];
 
-$pending_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Pending Review'");
-$pending_row = mysqli_fetch_assoc($pending_result);
-$pending_suppliers = $pending_row['total'];
-
 $approved_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Approved'");
 $approved_row = mysqli_fetch_assoc($approved_result);
 $approved_suppliers = $approved_row['total'];
+
+$pending_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Pending Review'");
+$pending_row = mysqli_fetch_assoc($pending_result);
+$pending_suppliers = $pending_row['total'];
 
 ?>
 
@@ -32,7 +34,7 @@ $approved_suppliers = $approved_row['total'];
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Procurement Dashboard</title>
+    <title>Manager Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -53,20 +55,20 @@ $approved_suppliers = $approved_row['total'];
             <ul class="nav-links">
 
                 <li>
-                    <a href="procurement_dashboard.php">
+                    <a href="manager_dashboard.php">
                         Dashboard
-                    </a>
-                </li>
-
-                <li>
-                    <a href="add_supplier.php">
-                        Add Supplier
                     </a>
                 </li>
 
                 <li>
                     <a href="view_suppliers.php">
                         View Suppliers
+                    </a>
+                </li>
+
+                <li>
+                    <a href="reports.php">
+                        Reports
                     </a>
                 </li>
 
@@ -90,7 +92,7 @@ $approved_suppliers = $approved_row['total'];
             <div>
 
                 <h1>
-                    Procurement Dashboard
+                    Manager Dashboard
                 </h1>
 
                 <p>
@@ -102,7 +104,7 @@ $approved_suppliers = $approved_row['total'];
 
         </div>
 
-            <div class="stats-container">
+        <div class="stats-container">
 
             <div class="stat-card">
 
@@ -114,17 +116,17 @@ $approved_suppliers = $approved_row['total'];
 
             <div class="stat-card">
 
-                <h3>Pending Review</h3>
+                <h3>Approved</h3>
 
-                <p><?php echo $pending_suppliers; ?></p>
+                <p><?php echo $approved_suppliers; ?></p>
 
             </div>
 
             <div class="stat-card">
 
-                <h3>Approved Suppliers</h3>
+                <h3>Pending Review</h3>
 
-                <p><?php echo $approved_suppliers; ?></p>
+                <p><?php echo $pending_suppliers; ?></p>
 
             </div>
 
@@ -132,20 +134,20 @@ $approved_suppliers = $approved_row['total'];
 
         <div class="content-section">
 
-            <h2>Supplier Information</h2>
+            <h2>Management Tools</h2>
 
             <div class="action-grid">
 
                 <div class="action-card">
 
-                    <h3>Add Supplier</h3>
+                    <h3>View Suppliers</h3>
 
                     <p>
-                        Record new supplier
-                        information for review.
+                        Review supplier records
+                        and verification status.
                     </p>
 
-                    <a href="add_supplier.php"
+                    <a href="view_suppliers.php"
                        class="action-btn">
 
                         Open
@@ -156,14 +158,14 @@ $approved_suppliers = $approved_row['total'];
 
                 <div class="action-card">
 
-                    <h3>Edit Suppliers</h3>
+                    <h3>Reports</h3>
 
                     <p>
-                        Update supplier details
-                        for manager review.
+                        View supplier status
+                        summaries and reports.
                     </p>
 
-                    <a href="view_suppliers.php"
+                    <a href="reports.php"
                        class="action-btn">
 
                         Open

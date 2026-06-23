@@ -1,6 +1,7 @@
 <?php
 
 include("session_check.php");
+include("db_connect.php");
 
 if($_SESSION['role'] != 'admin'){
 
@@ -8,6 +9,22 @@ if($_SESSION['role'] != 'admin'){
 
     exit();
 }
+
+$total_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers");
+$total_row = mysqli_fetch_assoc($total_result);
+$total_suppliers = $total_row['total'];
+
+$approved_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Approved'");
+$approved_row = mysqli_fetch_assoc($approved_result);
+$approved_suppliers = $approved_row['total'];
+
+$pending_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Pending Review'");
+$pending_row = mysqli_fetch_assoc($pending_result);
+$pending_suppliers = $pending_row['total'];
+
+$rejected_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM suppliers WHERE status='Rejected'");
+$rejected_row = mysqli_fetch_assoc($rejected_result);
+$rejected_suppliers = $rejected_row['total'];
 
 ?>
 
@@ -56,12 +73,6 @@ if($_SESSION['role'] != 'admin'){
                 </li>
 
                 <li>
-                    <a href="add_supplier.php">
-                        Add Supplier
-                    </a>
-                </li>
-
-                <li>
                     <a href="view_suppliers.php">
                         View Suppliers
                     </a>
@@ -71,6 +82,12 @@ if($_SESSION['role'] != 'admin'){
                         Audit Logs
     </a>
 </li>
+
+                <li>
+                    <a href="reports.php">
+                        Reports
+                    </a>
+                </li>
 
             </ul>
 
@@ -115,7 +132,7 @@ if($_SESSION['role'] != 'admin'){
 
                 <h3>Total Suppliers</h3>
 
-                <p>120</p>
+                <p><?php echo $total_suppliers; ?></p>
 
             </div>
 
@@ -123,15 +140,15 @@ if($_SESSION['role'] != 'admin'){
 
                 <h3>Approved</h3>
 
-                <p>80</p>
+                <p><?php echo $approved_suppliers; ?></p>
 
             </div>
 
             <div class="stat-card">
 
-                <h3>Pending</h3>
+                <h3>Pending Review</h3>
 
-                <p>25</p>
+                <p><?php echo $pending_suppliers; ?></p>
 
             </div>
 
@@ -139,7 +156,7 @@ if($_SESSION['role'] != 'admin'){
 
                 <h3>Rejected</h3>
 
-                <p>15</p>
+                <p><?php echo $rejected_suppliers; ?></p>
 
             </div>
 
@@ -153,29 +170,11 @@ if($_SESSION['role'] != 'admin'){
 
                 <div class="action-card">
 
-                    <h3>Add Supplier</h3>
-
-                    <p>
-                        Register and manage
-                        supplier records.
-                    </p>
-
-                    <a href="add_supplier.php"
-                       class="action-btn">
-
-                        Open
-
-                    </a>
-
-                </div>
-
-                <div class="action-card">
-
                     <h3>Manage Users</h3>
 
                     <p>
-                        Create procurement
-                        officer accounts.
+                        Create admin, manager,
+                        and procurement accounts.
                     </p>
 
                     <a href="register.php"
@@ -197,6 +196,24 @@ if($_SESSION['role'] != 'admin'){
                     </p>
 
                     <a href="view_suppliers.php"
+                       class="action-btn">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+                <div class="action-card">
+
+                    <h3>Reports</h3>
+
+                    <p>
+                        Review supplier status
+                        summaries and exports.
+                    </p>
+
+                    <a href="reports.php"
                        class="action-btn">
 
                         Open

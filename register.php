@@ -1,3 +1,21 @@
+<?php
+
+session_start();
+include("db_connect.php");
+
+$users_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users");
+$users_row = mysqli_fetch_assoc($users_result);
+$has_users = $users_row['total'] > 0;
+
+if($has_users && (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin')){
+
+    header("Location: login.php");
+
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,8 +110,12 @@
                         Admin
                     </option>
 
+                    <option value="manager">
+                        Manager
+                    </option>
+
                     <option value="procurement officer">
-                        procurement officer
+                        Procurement Officer
                     </option>
 
                 </select>

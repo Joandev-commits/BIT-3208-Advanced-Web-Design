@@ -3,6 +3,20 @@
 include("session_check.php");
 include("db_connect.php");
 
+if($_SESSION['role'] != 'procurement officer'){
+
+    header("Location: view_suppliers.php");
+
+    exit();
+}
+
+$column_check = mysqli_query($conn, "SHOW COLUMNS FROM suppliers LIKE 'supplier_document'");
+
+if(mysqli_num_rows($column_check) == 0){
+
+    mysqli_query($conn, "ALTER TABLE suppliers ADD supplier_document VARCHAR(255) NULL");
+}
+
 if(isset($_POST['add_supplier'])){
 
     $supplier_name = $_POST['supplier_name'];
@@ -13,7 +27,29 @@ if(isset($_POST['add_supplier'])){
 
     $business_type = $_POST['business_type'];
 
-    $status = $_POST['status'];
+    $status = "Pending Review";
+
+    $supplier_document = "";
+
+    if(isset($_FILES['supplier_document']) &&
+       $_FILES['supplier_document']['error'] == 0){
+
+        $upload_dir = "uploads/";
+
+        if(!is_dir($upload_dir)){
+
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $extension = pathinfo($_FILES['supplier_document']['name'], PATHINFO_EXTENSION);
+        $file_name = uniqid("supplier_", true) . "." . $extension;
+        $upload_path = $upload_dir . $file_name;
+
+        if(move_uploaded_file($_FILES['supplier_document']['tmp_name'], $upload_path)){
+
+            $supplier_document = $upload_path;
+        }
+    }
 
     $sql = "INSERT INTO suppliers(
 
@@ -21,7 +57,8 @@ if(isset($_POST['add_supplier'])){
                 email,
                 phone,
                 business_type,
-                status
+                status,
+                supplier_document
 
             )
 
@@ -31,7 +68,8 @@ if(isset($_POST['add_supplier'])){
                 '$email',
                 '$phone',
                 '$business_type',
-                '$status'
+                '$status',
+                '$supplier_document'
 
             )";
 
@@ -70,6 +108,7 @@ if(isset($_POST['add_supplier'])){
 <div class="form-container">
 
     <form method="POST"
+          enctype="multipart/form-data"
           class="modern-form">
 
         <h2>Add Supplier</h2>
@@ -94,25 +133,12 @@ if(isset($_POST['add_supplier'])){
                placeholder="Business Type"
                required>
 
-        <select name="status" required>
+        <input type="text"
+               value="Pending Review"
+               readonly>
 
-            <option value="">
-                Select Status
-            </option>
-
-            <option value="Pending">
-                Pending
-            </option>
-
-            <option value="Approved">
-                Approved
-            </option>
-
-            <option value="Rejected">
-                Rejected
-            </option>
-
-        </select>
+        <input type="file"
+               name="supplier_document">
 
         <button type="submit"
                 name="add_supplier">

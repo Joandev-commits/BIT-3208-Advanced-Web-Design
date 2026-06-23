@@ -3,6 +3,20 @@
 include("session_check.php");
 include("db_connect.php");
 
+if($_SESSION['role'] != 'procurement officer'){
+
+    header("Location: view_suppliers.php");
+
+    exit();
+}
+
+$column_check = mysqli_query($conn, "SHOW COLUMNS FROM suppliers LIKE 'supplier_document'");
+
+if(mysqli_num_rows($column_check) == 0){
+
+    mysqli_query($conn, "ALTER TABLE suppliers ADD supplier_document VARCHAR(255) NULL");
+}
+
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM suppliers WHERE id='$id'";
@@ -21,7 +35,29 @@ if(isset($_POST['update_supplier'])){
 
     $business_type = $_POST['business_type'];
 
-    $status = $_POST['status'];
+    $status = "Pending Review";
+
+    $supplier_document = $row['supplier_document'];
+
+    if(isset($_FILES['supplier_document']) &&
+       $_FILES['supplier_document']['error'] == 0){
+
+        $upload_dir = "uploads/";
+
+        if(!is_dir($upload_dir)){
+
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $extension = pathinfo($_FILES['supplier_document']['name'], PATHINFO_EXTENSION);
+        $file_name = uniqid("supplier_", true) . "." . $extension;
+        $upload_path = $upload_dir . $file_name;
+
+        if(move_uploaded_file($_FILES['supplier_document']['tmp_name'], $upload_path)){
+
+            $supplier_document = $upload_path;
+        }
+    }
 
     $update = "UPDATE suppliers SET
 
@@ -29,7 +65,8 @@ if(isset($_POST['update_supplier'])){
                 email='$email',
                 phone='$phone',
                 business_type='$business_type',
-                status='$status'
+                status='$status',
+                supplier_document='$supplier_document'
 
                 WHERE id='$id'";
 
@@ -59,7 +96,9 @@ if(isset($_POST['update_supplier'])){
 
 <div class="form-container">
 
-    <form method="POST" class="modern-form">
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="modern-form">
 
         <h2>Edit Supplier</h2>
 
@@ -83,42 +122,12 @@ if(isset($_POST['update_supplier'])){
                value="<?php echo $row['business_type']; ?>"
                required>
 
-        <select name="status" required>
+        <input type="text"
+               value="Pending Review"
+               readonly>
 
-            <option value="Pending"
-            <?php
-            if($row['status'] == 'Pending'){
-                echo "selected";
-            }
-            ?>>
-
-                Pending
-
-            </option>
-
-            <option value="Approved"
-            <?php
-            if($row['status'] == 'Approved'){
-                echo "selected";
-            }
-            ?>>
-
-                Approved
-
-            </option>
-
-            <option value="Rejected"
-            <?php
-            if($row['status'] == 'Rejected'){
-                echo "selected";
-            }
-            ?>>
-
-                Rejected
-
-            </option>
-
-        </select>
+        <input type="file"
+               name="supplier_document">
 
         <button type="submit"
                 name="update_supplier">

@@ -101,9 +101,10 @@ $result = mysqli_query($conn, $sql);
             font-weight: bold;
             display: inline-block;
         }
-        .status-approved  { background-color: #e8f5e9; color: #2e7d32; }
-        .status-pending   { background-color: #fff8e1; color: #f57f17; }
-        .status-rejected  { background-color: #ffebee; color: #c62828; }
+        .status-approved       { background-color: #e8f5e9; color: #2e7d32; }
+        .status-pending-review { background-color: #fff8e1; color: #f57f17; }
+        .status-pending        { background-color: #fff8e1; color: #f57f17; }
+        .status-rejected       { background-color: #ffebee; color: #c62828; }
 
         @media print {
             .no-print { display: none !important; }
@@ -129,9 +130,9 @@ $result = mysqli_query($conn, $sql);
 
         <select name="status">
             <option value="">All Statuses</option>
-            <option value="Approved"  <?php echo $filter_status == 'Approved'  ? 'selected' : ''; ?>>Approved</option>
-            <option value="Pending"   <?php echo $filter_status == 'Pending'   ? 'selected' : ''; ?>>Pending</option>
-            <option value="Rejected"  <?php echo $filter_status == 'Rejected'  ? 'selected' : ''; ?>>Rejected</option>
+            <option value="Pending Review" <?php echo $filter_status == 'Pending Review' ? 'selected' : ''; ?>>Pending Review</option>
+            <option value="Approved"       <?php echo $filter_status == 'Approved'       ? 'selected' : ''; ?>>Approved</option>
+            <option value="Rejected"       <?php echo $filter_status == 'Rejected'       ? 'selected' : ''; ?>>Rejected</option>
         </select>
 
         <button type="submit">Search</button>
@@ -143,7 +144,9 @@ $result = mysqli_query($conn, $sql);
     <!-- Action Row -->
     <div class="action-row">
 
-        <a href="add_supplier.php" class="add-btn no-print">Add Supplier</a>
+        <?php if($_SESSION['role'] == 'procurement officer'){ ?>
+            <a href="add_supplier.php" class="add-btn no-print">Add Supplier</a>
+        <?php } ?>
 
         <div class="no-print">
             <button class="export-btn" onclick="exportCSV()">Export CSV</button>
@@ -161,6 +164,7 @@ $result = mysqli_query($conn, $sql);
             <th>Email</th>
             <th>Phone</th>
             <th>Business Type</th>
+            <th>Document</th>
             <th>Status</th>
             <th class="no-print">Actions</th>
         </tr>
@@ -170,7 +174,7 @@ $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($result)){
             $count++;
             $status = $row['status'];
-            $badge_class = 'status-' . strtolower($status);
+            $badge_class = 'status-' . strtolower(str_replace(' ', '-', $status));
         ?>
 
         <tr>
@@ -186,6 +190,14 @@ $result = mysqli_query($conn, $sql);
             <td><?php echo $row['business_type']; ?></td>
 
             <td>
+                <?php if(isset($row['supplier_document']) && $row['supplier_document'] != ''){ ?>
+                    <a href="<?php echo $row['supplier_document']; ?>" target="_blank">View</a>
+                <?php } else { ?>
+                    No document
+                <?php } ?>
+            </td>
+
+            <td>
                 <span class="status-badge <?php echo $badge_class; ?>">
                     <?php echo $status; ?>
                 </span>
@@ -193,12 +205,26 @@ $result = mysqli_query($conn, $sql);
 
             <td class="no-print">
 
-                <a href="edit_supplier.php?id=<?php echo $row['id']; ?>">Edit</a>
+                <?php if($_SESSION['role'] == 'procurement officer'){ ?>
 
-                |
+                    <a href="edit_supplier.php?id=<?php echo $row['id']; ?>">Edit</a>
 
-                <a href="delete_supplier.php?id=<?php echo $row['id']; ?>"
-                   onclick="return confirm('Delete Supplier?')">Delete</a>
+                <?php } elseif($_SESSION['role'] == 'manager'){ ?>
+
+                    <a href="update_supplier_status.php?id=<?php echo $row['id']; ?>&status=Approved"
+                       onclick="return confirm('Approve Supplier?')">Approve</a>
+
+                    |
+
+                    <a href="update_supplier_status.php?id=<?php echo $row['id']; ?>&status=Rejected"
+                       onclick="return confirm('Reject Supplier?')">Reject</a>
+
+                <?php } elseif($_SESSION['role'] == 'admin'){ ?>
+
+                    <a href="delete_supplier.php?id=<?php echo $row['id']; ?>"
+                       onclick="return confirm('Delete Supplier?')">Delete</a>
+
+                <?php } ?>
 
             </td>
 
@@ -217,6 +243,8 @@ $result = mysqli_query($conn, $sql);
     <?php
     if($_SESSION['role'] == 'admin'){
         echo "<a href='admin_dashboard.php' class='no-print'>Back to Dashboard</a>";
+    } elseif($_SESSION['role'] == 'manager'){
+        echo "<a href='manager_dashboard.php' class='no-print'>Back to Dashboard</a>";
     } else {
         echo "<a href='procurement_dashboard.php' class='no-print'>Back to Dashboard</a>";
     }

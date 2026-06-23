@@ -1,69 +1,89 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>SupplyFlow | Supplier Verification System</title>
+<title>SupplyFlow | Supplier Verification System</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="landing.css">
+```
 
 </head>
 
-<body>
+<body class="site-body">
 
-    <header class="navbar">
+```
+<header class="site-header">
 
-        <div class="logo">
+    <a href="index.html" class="site-brand">
+        SupplyFlow
+    </a>
 
-            <h2>SupplyFlow</h2>
+    <nav class="site-nav">
 
-        </div>
+        <a href="#workflow">
+            Workflow
+        </a>
 
-        <nav class="nav-links">
+        <a href="#features">
+            Features
+        </a>
 
-            <a href="index.html">Home</a>
+        <a href="#roles">
+            Roles
+        </a>
 
-            <a href="#features">Features</a>
+        <a href="login.php"
+           class="site-nav-btn">
 
-            <a href="#about">About</a>
+            Login
 
-            <a href="login.php" class="nav-btn">
-                Login
-            </a>
+        </a>
 
-        </nav>
+    </nav>
 
-    </header>
+</header>
 
-    <section class="hero">
+<main>
 
-        <div class="hero-overlay"></div>
+    <section class="site-hero">
 
-        <div class="hero-content">
+        <div class="site-hero-content">
+
+            <p class="eyebrow">
+                Supplier Verification System
+            </p>
 
             <h1>
-                Smarter Supplier Verification
-                for Modern Organizations
+                Manage Suppliers with Confidence
             </h1>
 
-            <p>
+            <p class="hero-copy">
 
-                Streamline supplier verification,
-                manage vendor records,
-                and improve procurement efficiency
-                using one secure centralized platform.
+                SupplyFlow is a web-based supplier verification and
+                management platform that enables procurement officers,
+                managers, and administrators to manage supplier records,
+                approvals, reports, and audit logs from one centralized
+                system.
 
             </p>
 
-            <div class="hero-buttons">
+            <div class="hero-actions">
 
-                <a href="login.php" class="btn">
+                <a href="login.php"
+                   class="primary-action">
+
                     Login to System
+
                 </a>
 
             </div>
@@ -72,141 +92,234 @@
 
     </section>
 
-    <section class="features" id="features">
+    <section class="workflow-section"
+             id="workflow">
 
-        <div class="section-title">
+        <div class="section-heading">
 
-            <h2>System Features</h2>
-
-            <p>
-                Designed to simplify supplier verification
-                and procurement workflows.
+            <p class="eyebrow">
+                Workflow
             </p>
-
-        </div>
-
-        <div class="feature-grid">
-
-            <div class="card">
-
-                <h3>Supplier Management</h3>
-
-                <p>
-
-                    Add, edit, view,
-                    and manage supplier
-                    records efficiently.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <h3>Verification Tracking</h3>
-
-                <p>
-
-                    Track supplier verification
-                    status as Pending,
-                    Approved, or Rejected.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <h3>Role-Based Access</h3>
-
-                <p>
-
-                    Separate dashboards for
-                    administrators and
-                    procurement officers.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <h3>Secure Authentication</h3>
-
-                <p>
-
-                    Secure login system with
-                    session management and
-                    password protection.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="about" id="about">
-
-        <div class="about-content">
 
             <h2>
-                About SupplyFlow
+                Supplier Verification Process
             </h2>
 
-            <p>
+        </div>
 
-                SupplyFlow is a web-based
-                Supplier Verification System
-                designed to help organizations
-                manage supplier records,
-                verify supplier information,
-                and streamline procurement operations.
+        <div class="workflow-grid">
 
-                The platform improves operational
-                efficiency through secure authentication,
-                centralized supplier management,
-                and role-based access control.
+            <article class="workflow-step">
 
-            </p>
+                <span>1</span>
+
+                <h3>
+                    Procurement Officer
+                </h3>
+
+                <p>
+                    Registers suppliers and submits supplier
+                    records for review.
+                </p>
+
+            </article>
+
+            <article class="workflow-step">
+
+                <span>2</span>
+
+                <h3>
+                    Manager
+                </h3>
+
+                <p>
+                    Reviews supplier information and
+                    approves or rejects submissions.
+                </p>
+
+            </article>
+
+            <article class="workflow-step">
+
+                <span>3</span>
+
+                <h3>
+                    Administrator
+                </h3>
+
+                <p>
+                    Manages users, monitors activity,
+                    generates reports, and reviews
+                    audit logs.
+                </p>
+
+            </article>
 
         </div>
 
     </section>
 
-    <section class="cta">
+    <section class="features-section"
+             id="features">
 
-        <h2>
-            Efficient Supplier Verification Starts Here
-        </h2>
+        <div class="section-heading">
 
-        <p>
+            <p class="eyebrow">
+                Features
+            </p>
 
-            Access the system securely
-            to manage supplier verification
-            and procurement activities.
+            <h2>
+                System Features
+            </h2>
 
-        </p>
+        </div>
 
-        <a href="login.php" class="btn">
-            Login
-        </a>
+        <div class="feature-list">
+
+            <article class="feature-item">
+
+                <h3>
+                    Supplier Management
+                </h3>
+
+                <p>
+                    Add, update, and manage supplier
+                    records securely.
+                </p>
+
+            </article>
+
+            <article class="feature-item">
+
+                <h3>
+                    Approval Workflow
+                </h3>
+
+                <p>
+                    Route supplier records through
+                    manager approval processes.
+                </p>
+
+            </article>
+
+            <article class="feature-item">
+
+                <h3>
+                    Reports
+                </h3>
+
+                <p>
+                    View supplier statistics and
+                    system summaries.
+                </p>
+
+            </article>
+
+            <article class="feature-item">
+
+                <h3>
+                    Audit Logs
+                </h3>
+
+                <p>
+                    Track user activities and
+                    important system actions.
+                </p>
+
+            </article>
+            <article class="feature-item">
+
+    <h3>
+        Controlled User Access
+    </h3>
+
+    <p>
+        Administrators create and manage user accounts
+        and assign system roles to ensure secure access.
+    </p>
+
+</article>
+
+        </div>
 
     </section>
 
-    <footer>
+    <section class="roles-section"
+             id="roles">
 
-        <p>
+        <div class="roles-panel">
 
-            © 2026 SupplyFlow.
-            All Rights Reserved.
+            <div>
 
-        </p>
+                <p class="eyebrow">
+                    User Roles
+                </p>
 
-    </footer>
+                <h2>
+                    Access Levels
+                </h2>
 
-    <script src="validate.js"></script>
+            </div>
+
+            <div class="roles-list">
+
+                <div class="role-row">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <span>
+                        Manage users, suppliers,
+                        reports, and audit logs.
+                    </span>
+
+                </div>
+
+                <div class="role-row">
+
+                    <strong>
+                        Manager
+                    </strong>
+
+                    <span>
+                        Review suppliers and make
+                        approval decisions.
+                    </span>
+
+                </div>
+
+                <div class="role-row">
+
+                    <strong>
+                        Procurement Officer
+                    </strong>
+
+                    <span>
+                        Register suppliers and
+                        update supplier information.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="site-footer">
+
+    <p>
+
+        &copy; 2026 SupplyFlow. All Rights Reserved.
+
+    </p>
+
+</footer>
+```
 
 </body>
 

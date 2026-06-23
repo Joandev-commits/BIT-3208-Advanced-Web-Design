@@ -35,6 +35,13 @@ if(isset($_POST['login'])){
                 exit();
 
             }
+            elseif($row['role'] == 'manager'){
+
+                header("Location: manager_dashboard.php");
+
+                exit();
+
+            }
             elseif($row['role'] == 'procurement officer'){
 
                 header("Location: procurement_dashboard.php");
